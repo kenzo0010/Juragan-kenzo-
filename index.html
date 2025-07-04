@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - DANA & QRIS</title>
+    <style>
+        /* CSS Smooth & HD */
+        :root {
+            --primary: #00a3e0;
+            --secondary: #25D366;
+            --dark: #222;
+            --light: #f9f9f9;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+            gap: 30px;
+        }
+        
+        .method {
+            flex: 1 1 300px;
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dana-icon, .qris-icon, .wa-icon {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .number {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            background: #0088c6;
+        }
+        
+        .qris-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            transition: var(--transition);
+        }
+        
+        .qris-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .whatsapp-info {
+            margin-top: 30px;
+            background: #f0f8ff;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        
+        .wa-link {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .wa-link:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--dark);
+            color: white;
+        }
+        
+        @media (max-width: 600px) {
+            .payment-methods {
+                padding: 20px;
+            }
+            
+            .method {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Payment Gateway</h1>
+            <p>Silakan pilih metode pembayaran yang tersedia</p>
+        </header>
+        
+        <div class="payment-methods">
+            <div class="method">
+                <h2><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" class="dana-icon"> DANA</h2>
+                <p>Transfer ke nomor DANA berikut:</p>
+                <div class="number">
+                    <span id="dana-number">085198079353</span>
+                    <button class="copy-btn" onclick="copyToClipboard('dana-number')">Salin</button>
+                </div>
+                <p>Setelah transfer, harap konfirmasi ke admin dengan menyertakan bukti transfer.</p>
+            </div>
+            
+            <div class="method">
+                <h2><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS" class="qris-icon"> QRIS</h2>
+                <p>Scan QR code berikut untuk pembayaran:</p>
+                <img src="https://g.top4top.io/p_34717t44f1.jpg" alt="QR Code" class="qris-image">
+                <p>Pembayaran via QRIS mendukung berbagai aplikasi e-wallet dan mobile banking.</p>
+            </div>
+            
+            <div class="whatsapp-info">
+                <h2><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon"> Informasi WhatsApp</h2>
+                <p>Bergabunglah dengan grup WhatsApp kami untuk informasi lebih lanjut:</p>
+                <a href="https://chat.whatsapp.com/JDAiXyE68v7KzFdBGkkD4V?mode=ac_c" class="wa-link" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon" style="width:20px;height:20px;">
+                    Gabung Grup WhatsApp
+                </a>
+                
+                <p style="margin-top: 20px;">Atau ikuti saluran WhatsApp kami:</p>
+                <a href="https://whatsapp.com/channel/0029VbAsoHOHltY8eaQ8Mx41" class="wa-link" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon" style="width:20px;height:20px;">
+                    Ikuti Saluran WhatsApp
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Payment Gateway. Semua hak dilindungi.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = element.nextElementSibling.innerText;
+                element.nextElementSibling.innerText = 'Tersalin!';
+                
+                setTimeout(() => {
+                    element.nextElementSibling.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
